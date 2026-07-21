@@ -29,3 +29,19 @@ A high-performance full-stack security operations and audit telemetry tracking a
 ```bash
 git clone [https://github.com/pRIYa25S/security-audit-log-dashboard.git](https://github.com/pRIYa25S/security-audit-log-dashboard.git)
 cd security-audit-log-dashboard
+
+### 2. Configure and Run the Backend
+cd backend
+npm install
+Create a .env file inside the backend folder with the following configuration:
+PORT=5000
+MONGO_URI=your_mongodb_atlas_connection_string
+Start the Server:
+node server.js
+
+### 3. Configure and Run the Frontend
+Open a new terminal window, navigate to the frontend folder, and start the development server:
+cd frontend
+npm install
+npm start
+
