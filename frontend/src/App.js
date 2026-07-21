@@ -7,45 +7,31 @@ function App() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalLogs, setTotalLogs] = useState(0);
   
-  const [stats, setStats] = useState({ total: 0, high: 0, resolved: 0, unresolved: 0 });
   const [severity, setSeverity] = useState('');
   const [status, setStatus] = useState('');
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('timestamp');
   const [order, setOrder] = useState('desc');
 
+  const BACKEND_URL = 'https://security-audit-log-dashboard.onrender.com';
+
   useEffect(() => {
-    fetchLogs();
-    fetchStats();
-  }, [page, severity, status, search, sortBy, order]);
-
-  const fetchLogs = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/api/logs?page=${page}&limit=10&severity=${severity}&status=${status}&search=${search}&sortBy=${sortBy}&order=${order}`
-      );
-      const data = await response.json();
-      setLogs(data.logs || []);
-      setTotalPages(data.totalPages || 1);
-      setTotalLogs(data.totalLogs || 0);
-    } catch (err) {
-      console.error("Error fetching logs:", err);
-    }
-  };
-
-  const fetchStats = async () => {
-    try {
-      const response = await fetch(
-  `https://security-audit-log-dashboard.onrender.com/api/logs?page=${page}&limit=10&severity=${severity}&status=${status}&search=${search}&sortBy=${sortBy}&order=${order}`
-);
-          if (response.ok) {
+    const fetchLogs = async () => {
+      try {
+        const response = await fetch(
+          `${BACKEND_URL}/api/logs?page=${page}&limit=10&severity=${severity}&status=${status}&search=${search}&sortBy=${sortBy}&order=${order}`
+        );
         const data = await response.json();
-        setStats(data);
+        setLogs(data.logs || []);
+        setTotalPages(data.totalPages || 1);
+        setTotalLogs(data.totalLogs || 0);
+      } catch (err) {
+        console.error("Error fetching logs:", err);
       }
-    } catch (err) {
-     
-    }
-  };
+    };
+
+    fetchLogs();
+  }, [page, severity, status, search, sortBy, order]);
 
   const handleBulkUploadMock = async () => {
     const bulkLogs = [];
@@ -64,14 +50,16 @@ function App() {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/logs/upload', {
+      const res = await fetch(`${BACKEND_URL}/api/logs/upload`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bulkLogs)
       });
       if (res.ok) {
         alert("Bulk upload successful!");
-        fetchLogs();
+        // Trigger a re-fetch by toggling search slightly or reloading page
+        setPage(1);
+        window.location.reload();
       }
     } catch (err) {
       console.error("Bulk upload failed", err);
