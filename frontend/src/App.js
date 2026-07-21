@@ -35,8 +35,10 @@ function App() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/logs/stats'); // Optional if your backend has a stats endpoint, otherwise calculated from total
-      if (response.ok) {
+      const response = await fetch(
+  `https://security-audit-log-dashboard.onrender.com/api/logs?page=${page}&limit=10&severity=${severity}&status=${status}&search=${search}&sortBy=${sortBy}&order=${order}`
+);
+          if (response.ok) {
         const data = await response.json();
         setStats(data);
       }
