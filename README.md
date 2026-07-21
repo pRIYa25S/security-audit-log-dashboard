@@ -50,9 +50,13 @@ Start the Server:
 node server.js
 
 ### 3. Configure and Run the Frontend
+
 Open a new terminal window, navigate to the frontend folder, and start the development server:
+
 cd frontend
+
 npm install
+
 npm start
 
 
