@@ -29,12 +29,12 @@ A high-performance full-stack security operations and audit telemetry tracking a
 * MongoDB Atlas cluster (or local MongoDB instance)
 
 ### 1. Clone the Repository
-```bash
+
 git clone [https://github.com/pRIYa25S/security-audit-log-dashboard.git](https://github.com/pRIYa25S/security-audit-log-dashboard.git)
 cd security-audit-log-dashboard
 
 ### 2. Configure and Run the Backend
-```bash
+
 cd backend
 npm install
 Create a .env file inside the backend folder with the following configuration:
