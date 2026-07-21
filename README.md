@@ -50,7 +50,8 @@ npm install
 npm start
 
 
-Key Engineering Decisions
+### Key Engineering Decisions
+
 1.Server-Side Pagination & Filtering:
 
 Pagination, sorting (sortBy, order), search queries (search), and severity/status filters are handled directly on the backend via Mongoose queries to ensure extreme scalability.
